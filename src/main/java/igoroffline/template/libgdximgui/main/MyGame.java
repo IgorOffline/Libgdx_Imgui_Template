@@ -2,6 +2,7 @@ package igoroffline.template.libgdximgui.main;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +11,7 @@ import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
+import imgui.type.ImString;
 import lombok.extern.slf4j.Slf4j;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
@@ -21,6 +23,10 @@ public class MyGame extends ApplicationAdapter {
     private Texture image;
 
     private MyImgui myImgui;
+
+    ImString guiInput = new ImString("", 8);
+    private int counter1 = 0;
+    private int counter2 = 0;
 
     @Override
     public void create() {
@@ -34,6 +40,16 @@ public class MyGame extends ApplicationAdapter {
 
     @Override
     public void render() {
+
+        if (!ImGui.isAnyItemActive()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                counter1++;
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            counter2++;
+        }
+
         Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
@@ -63,7 +79,7 @@ public class MyGame extends ApplicationAdapter {
         log.info("path= {}", path.getLast());
     }
 
-    static class MyImgui {
+    class MyImgui {
 
         ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
         ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
@@ -95,6 +111,10 @@ public class MyGame extends ApplicationAdapter {
             {
                 log.info("<PRESS>");
             }
+            ImGui.inputText("Input", guiInput);
+            ImGui.text("Press W, observe the counters");
+            ImGui.text("counter1: " + counter1);
+            ImGui.text("counter2: " + counter2);
             // ---
 
             ImGui.render();
