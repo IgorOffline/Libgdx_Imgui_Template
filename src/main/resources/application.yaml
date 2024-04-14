@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: libgdximgui
+  main:
+    web-application-type: none
+  profiles:
+    active: dev
