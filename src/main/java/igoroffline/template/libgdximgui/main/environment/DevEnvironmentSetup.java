@@ -1,6 +1,9 @@
 package igoroffline.template.libgdximgui.main.environment;
 
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import igoroffline.template.libgdximgui.main.AStar;
+import igoroffline.template.libgdximgui.main.MyGame;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -13,19 +16,20 @@ public class DevEnvironmentSetup implements EnvironmentSetup {
     @Override
     public void init() {
         log.info("<START:DEV>");
-
-        var tiles = new Short[3][];
-        tiles[0] = new Short[] { (short) 1, (short) 0, (short) 1 };
-        tiles[1] = new Short[] { (short) 1, (short) 0, (short) 1 };
-        tiles[2] = new Short[] { (short) 1, (short) 1, (short) 1 };
-
-        final var astar = new AStar(tiles);
-        final var path = astar.findPath(0, 0, 0, 2);
-
-        log.info("path= {}", path);
-        log.info("path= {}", path.getFirst());
-        log.info("path= {}", path.getLast());
-
+        createApplication();
         log.info("<END:DEV>");
+    }
+
+    private Lwjgl3Application createApplication() {
+        return new Lwjgl3Application(new MyGame(), getDefaultConfiguration());
+    }
+
+    private Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+        Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
+        configuration.setTitle("libgdx_imgui_template");
+        configuration.useVsync(true);
+        configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate);
+        configuration.setWindowedMode(640, 480);
+        return configuration;
     }
 }

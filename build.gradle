@@ -24,6 +24,13 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation "com.badlogicgames.gdx:gdx:1.12.1"
+	implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.12.1"
+	implementation "com.badlogicgames.gdx:gdx-platform:1.12.1:natives-desktop"
+
+	implementation "io.github.spair:imgui-java-app:1.86.11"
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
