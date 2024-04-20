@@ -19,8 +19,8 @@ public class LibgdxSetup {
         log.info("<END:DEV>");
     }
 
-    private Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new MyGame(), getDefaultConfiguration());
+    private void createApplication() {
+        new Lwjgl3Application(new MyGame(), getDefaultConfiguration());
     }
 
     private Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
